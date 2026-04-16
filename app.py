@@ -1,53 +1,3 @@
-#import streamlit as st
-#import pandas as pd
-
-#st.title("SKU Search App 🚀")
-
-## Google Sheet CSV link (temporary example)
-##url = "https://docs.google.com/spreadsheets/d/1J9GQA2pg8jSl0ydN0CeFVVIJz7bRVP9VyOIAh2hv_Vs/export?format=csv&gid=42975298"
-#df = pd.read_csv(url, header=1, on_bad_lines='skip')
-#df = df[["Image link 1", "New Color SKU", "Parent SKU", "Color 1", "Color 2", "Color (For Uniware)", "Primary category", "Amazon SKU", "Amazon Child ASIN", "FK SKU","FK FSN", "FK Listing ID", "AJIO SKU", "Ajio JioCode", "Ajio EAN", "Myntra SKU", "Myntra Style ID", "Meesho Catalog ID","Meesho Product ID"]]
-##st.write("Columns:", df.columns)
-#search = st.text_input("Enter SKU")
-
-#if search:
- #   result = df[df.astype(str).apply(lambda row: row.str.contains(search, case=False).any(), axis=1)]
-    
-  #  if not result.empty:
-   #     row = result.iloc[0]
-#    st.success("Data found ✅")
-
-#       #st.image(row["Image"], width=550)
- #       img_url = str(row["Image link 1"])
-  #  if pd.notna(img_url) and img_url != "":
-   #     if "dropbox.com" in img_url:
-    #        img_url = img_url.replace("www.dropbox.com", "dl.dropboxusercontent.com")
-     #       img_url = img_url.split("?")[0]
-      #  st.image(img_url, width=250)
-    
-    # #Convert dropbox link to direct image
-  
-    # #🧾 Basic Info
-       # st.write("Parent SKU:", row["Parent SKU"])
-        #st.write("New SKU:", row["New Color SKU"])
-
-    # 🎨 #Colors
-      #  st.write("Color:", row["Color 1"], "/", row["Color 2"])
-
-      #  st.subheader("Platform SKUs")
-
-    # #🛒 Platforms
-       # st.write("Amazon SKU:", row["Amazon SKU"])
-        #st.write("Flipkart SKU:", row["FK SKU"])
-      #  st.write("Myntra SKU:", row["Myntra SKU"])
-       ##st.write("Meesho Product ID:", row["Meesho Product ID"])
-        
-    #else:
-     #   st.error("No data found ❌")
-
-
-
-
 import streamlit as st
 import pandas as pd
 st.set_page_config(layout="wide")
@@ -112,8 +62,11 @@ if st.session_state.search:
             img_row = img_df[img_df["New Color SKU"] == color_sku]
 
             if not img_row.empty:
-                img_url = img_row.iloc[0]["Image link"]
-                st.image(img_url, width=220)
+                img_url = str(img_row.iloc[0]["Image link"]).strip()
+                st.markdown(
+                    f'<img src="{img_url}" style="width:100%; border-radius:10px;">',
+                    unsafe_allow_html=True
+                    )
             else:
                 st.warning("No image")
 

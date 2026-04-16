@@ -78,7 +78,7 @@ if st.session_state.search:
 
             with col1:
                 st.write("**Parent SKU**")
-                st.write(row["Parent SKU"])
+                st.write(str(row["Parent SKU"]))
             with col2:
                 st.write("**Color SKU**")
                 st.write(row["New Color SKU"])
@@ -99,7 +99,7 @@ if st.session_state.search:
 
             with col1:
                 st.write("**EAN CODE**")
-                st.write(row["EAN CODE"])
+                st.write(str(row["EAN CODE"]).replace(".0", ""))
             with col2:
                 st.write("**Box code**")
                 st.write(row["Box code"])

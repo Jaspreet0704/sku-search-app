@@ -26,16 +26,13 @@ df = df[[
 if "search" not in st.session_state:
     st.session_state.search = ""
 
-col1, col2 = st.columns([0.5,1])
+col1, col2 = st.columns([5,1])
 
 with col1:
     st.text_input("Enter SKU", key="search")
 
 with col2:
     st.button("❌", on_click=clear_search)
-
-# ---------------- MOBILE TOGGLE ----------------
-is_mobile = st.checkbox("Mobile View")  # for testing
 
 # ---------------- SEARCH ----------------
 if st.session_state.search:
@@ -64,119 +61,54 @@ if st.session_state.search:
             else:
                 st.warning("No image")
 
-        # ---------------- DATA ----------------
+        # ---------------- DATA (2 COLUMN FIXED) ----------------
         with right_col:
 
-            if is_mobile:
-                # 📱 MOBILE → 2 columns
+            col1, col2 = st.columns(2)
 
-                col1, col2 = st.columns(2)
+            with col1:
+                st.write("**Parent SKU**")
+                st.write(row["Parent SKU"])
 
-                with col1:
-                    st.write("**Parent SKU**")
-                    st.write(row["Parent SKU"])
+                st.write("**New SKU**")
+                st.write(row["New SKU"])
 
-                    st.write("**New SKU**")
-                    st.write(row["New SKU"])
+                st.write("**Color 2**")
+                st.write(row["Color 2"])
 
-                    st.write("**Color 2**")
-                    st.write(row["Color 2"])
+                st.write("**Box code**")
+                st.write(row["Box code"])
 
-                    st.write("**Box code**")
-                    st.write(row["Box code"])
+                st.write("**Amazon Child ASIN**")
+                st.write(row["Amazon Child ASIN"])
 
-                    st.write("**Amazon Child ASIN**")
-                    st.write(row["Amazon Child ASIN"])
+                st.write("**Flipkart SKU**")
+                st.write(row["FK SKU"])
 
-                    st.write("**Flipkart**")
-                    st.write(row["FK SKU"])
+                st.write("**Ajio SKU**")
+                st.write(row["AJIO SKU"])
 
-                with col2:
-                    st.write("**Color SKU**")
-                    st.write(row["New Color SKU"])
+            with col2:
+                st.write("**Color SKU**")
+                st.write(row["New Color SKU"])
 
-                    st.write("**Color 1**")
-                    st.write(row["Color 1"])
+                st.write("**Color 1**")
+                st.write(row["Color 1"])
 
-                    st.write("**EAN CODE**")
-                    st.write(str(row["EAN CODE"]).replace(".0", ""))
+                st.write("**EAN CODE**")
+                st.write(str(row["EAN CODE"]).replace(".0", ""))
 
-                    st.write("**Amazon SKU**")
-                    st.write(row["Amazon SKU"])
+                st.write("**Amazon SKU**")
+                st.write(row["Amazon SKU"])
 
-                    st.write("**Amazon Parent ASIN**")
-                    st.write(row["Amazon Parent ASIN"])
+                st.write("**Amazon Parent ASIN**")
+                st.write(row["Amazon Parent ASIN"])
 
-                    st.write("**Myntra**")
-                    st.write(row["Myntra SKU"])
+                st.write("**Myntra SKU**")
+                st.write(row["Myntra SKU"])
 
-                    st.write("**Ajio**")
-                    st.write(row["AJIO SKU"])
-
-            else:
-                # 💻 DESKTOP → original layout
-
-                col1, col2, col3, col4, col5 = st.columns(5)
-
-                with col1:
-                    st.write("**Parent SKU**")
-                    st.write(row["Parent SKU"])
-
-                with col2:
-                    st.write("**Color SKU**")
-                    st.write(row["New Color SKU"])
-
-                with col3:
-                    st.write("**New SKU**")
-                    st.write(row["New SKU"])
-
-                with col4:
-                    st.write("**Color 1**")
-                    st.write(row["Color 1"])
-
-                with col5:
-                    st.write("**Color 2**")
-                    st.write(row["Color 2"])
-
-                st.markdown("---")
-
-                col1, col2, col3, col4, col5 = st.columns(5)
-
-                with col1:
-                    st.write("**EAN CODE**")
-                    st.write(str(row["EAN CODE"]).replace(".0", ""))
-
-                with col2:
-                    st.write("**Box code**")
-                    st.write(row["Box code"])
-
-                with col3:
-                    st.write("**Amazon SKU**")
-                    st.write(row["Amazon SKU"])
-
-                with col4:
-                    st.write("**Amazon Child ASIN**")
-                    st.write(row["Amazon Child ASIN"])
-
-                with col5:
-                    st.write("**Amazon Parent ASIN**")
-                    st.write(row["Amazon Parent ASIN"])
-
-                st.markdown("---")
-
-                col1, col2, col3 = st.columns(3)
-
-                with col1:
-                    st.write("**Flipkart**")
-                    st.write(row["FK SKU"])
-
-                with col2:
-                    st.write("**Myntra**")
-                    st.write(row["Myntra SKU"])
-
-                with col3:
-                    st.write("**Ajio**")
-                    st.write(row["AJIO SKU"])
+                st.write("**Meesho Product ID**")
+                st.write(row["Meesho Product ID"])
 
     else:
         st.error("No data found ❌")

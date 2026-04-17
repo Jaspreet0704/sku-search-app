@@ -111,13 +111,13 @@ if st.session_state.search:
             with col2:
                 st.write("**Box code**")
                 st.write(row["Box code"])
-            with col2:
+            with col3:
                 st.write("**Amazon SKU**")
                 st.write(row["Amazon SKU"])
-
+            with col4:
                 st.write("**Amazon Child ASIN**")
                 st.write(row["Amazon Child ASIN"])
-
+            with col5:
                 st.write("**Amazon Parent ASIN**")
                 st.write(row["Amazon Parent ASIN"])
 

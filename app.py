@@ -83,51 +83,59 @@ if st.session_state.search:
         # -------- DATA --------
         with right_col:
 
-            col1, col2 = st.columns(2)
+            col1, col2, col3, col4, col5 = st.columns(5)
 
             with col1:
                 st.write("**Parent SKU**")
-                st.write(row["Parent SKU"])
-
+                st.write(str(row["Parent SKU"]))
+            with col2:
+                st.write("**Color SKU**") 
+                st.write(row["New Color SKU"])
+            with col3:
                 st.write("**New SKU**")
                 st.write(row["New SKU"])
-
-                st.write("**Color 2**")
+            with col4: 
+                st.write("**Color 1**") 
+                st.write(row["Color 1"]) 
+            with col5: 
+                st.write("**Color 2**") 
                 st.write(row["Color 2"])
 
+            st.markdown("---")
+
+            col1, col2, col3, col4, col5 = st.columns(5)
+                
+            with col1: 
+                st.write("**EAN CODE**") 
+                st.write(str(row["EAN CODE"]).replace(".0", ""))
+            with col2:
                 st.write("**Box code**")
                 st.write(row["Box code"])
+            with col2:
+                st.write("**Amazon SKU**")
+                st.write(row["Amazon SKU"])
 
                 st.write("**Amazon Child ASIN**")
                 st.write(row["Amazon Child ASIN"])
 
-                st.write("**Flipkart SKU**")
-                st.write(row["FK SKU"])
-
-                st.write("**Ajio SKU**")
-                st.write(row["AJIO SKU"])
-
-            with col2:
-                st.write("**Color SKU**")
-                st.write(row["New Color SKU"])
-
-                st.write("**Color 1**")
-                st.write(row["Color 1"])
-
-                st.write("**EAN CODE**")
-                st.write(str(row["EAN CODE"]).replace(".0", ""))
-
-                st.write("**Amazon SKU**")
-                st.write(row["Amazon SKU"])
-
                 st.write("**Amazon Parent ASIN**")
                 st.write(row["Amazon Parent ASIN"])
 
-                st.write("**Myntra SKU**")
-                st.write(row["Myntra SKU"])
+            st.markdown("---")
 
-                st.write("**Meesho Product ID**")
-                st.write(row["Meesho Product ID"])
+            col1, col2,col3 = st.columns(3)
+
+            with col1:
+                st.write("**Flipkart SKU**")
+                st.write(row["FK SKU"])
+            with col2: 
+                st.write("**Myntra**") 
+                st.write(row["Myntra SKU"])
+            with col3: 
+                st.write("**Ajio**") 
+                st.write(row["AJIO SKU"])
 
     else:
         st.error("No data found ❌")
+
+

@@ -10,10 +10,15 @@ def clear_search():
 
 # ---------------- DATA LOAD ----------------
 url = "https://docs.google.com/spreadsheets/d/1J9GQA2pg8jSl0ydN0CeFVVIJz7bRVP9VyOIAh2hv_Vs/export?format=csv&gid=42975298"
-img_sheet_url = "https://docs.google.com/spreadsheets/d/1Fohl2VC-u6RQZaUsslUTvEU3RvfXLBKZ/export?format=csv&gid=1702009625"
+
+# ✅ FIXED IMAGE SHEET LINK
+img_sheet_url = "https://docs.google.com/spreadsheets/d/1mBTa0m7gZ-57wbVf5kshc6hYNAT1o68HPzWsrlhd6cs/export?format=csv&gid=0"
 
 df = pd.read_csv(url, header=1, on_bad_lines='skip')
 img_df = pd.read_csv(img_sheet_url)
+
+# ✅ CLEAN COLUMN NAMES (IMPORTANT)
+img_df.columns = img_df.columns.str.strip()
 
 df = df[[
     "Image link 1", "New Color SKU", "New SKU", "Parent SKU",
@@ -26,7 +31,7 @@ df = df[[
 if "search" not in st.session_state:
     st.session_state.search = ""
 
-col1, col2 = st.columns([5,1])
+col1, col2 = st.columns([0.5,1])
 
 with col1:
     st.text_input("Enter SKU", key="search")
@@ -45,23 +50,29 @@ if st.session_state.search:
     if not result.empty:
         row = result.iloc[0]
 
-        # ---------------- IMAGE ----------------
+        # ---------------- MAIN LAYOUT ----------------
         left_col, right_col = st.columns([1,2])
 
+        # -------- IMAGE --------
         with left_col:
             color_sku = str(row["New Color SKU"]).strip()
-            img_row = img_df[img_df["New Color SKU"] == color_sku]
+
+            # ✅ MATCH USING LINK SLUG
+            img_row = img_df[
+                img_df["Link slug"].astype(str).str.strip() == color_sku
+            ]
 
             if not img_row.empty:
-                img_url = str(img_row.iloc[0]["Image link"]).strip()
+                img_url = str(img_row.iloc[0]["Original URL"]).strip()
+
                 st.markdown(
                     f'<img src="{img_url}" style="width:100%; border-radius:10px;">',
                     unsafe_allow_html=True
                 )
             else:
-                st.warning("No image")
+                st.warning("No image found")
 
-        # ---------------- DATA (2 COLUMN FIXED) ----------------
+        # -------- DATA --------
         with right_col:
 
             col1, col2 = st.columns(2)

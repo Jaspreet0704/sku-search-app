@@ -129,7 +129,7 @@ if st.session_state.search:
                 st.write(str(row["EAN CODE"]).replace(".0", ""))
 
             with col2:
-                st.write("**Box code**")
+                st.write("**Box **")
                 st.write(row["Box code"])
 
             with col3:
